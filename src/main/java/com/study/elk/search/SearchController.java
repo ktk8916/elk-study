@@ -1,4 +1,4 @@
-package com.study.elk;
+package com.study.elk.search;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

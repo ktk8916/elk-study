@@ -1,5 +1,6 @@
-package com.study.elk;
+package com.study.elk.search;
 
+import com.study.elk.utility.elasticsearch.ElasticsearchClientConfig;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
