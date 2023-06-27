@@ -5,6 +5,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -28,8 +29,7 @@ public class ElasticsearchTemplate {
                 QueryBuilders.matchQuery(
                         dto.getField(),
                         dto.getKeyword()
-                )
-        );
+                ).fuzziness(Fuzziness.AUTO));
         searchRequest.source(sourceBuilder);
 
         SearchResponse searchResponse = execute(searchRequest);
