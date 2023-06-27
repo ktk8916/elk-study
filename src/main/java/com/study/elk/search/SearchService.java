@@ -1,6 +1,9 @@
 package com.study.elk.search;
 
+import com.study.elk.search.dto.MatchQueryDto;
 import com.study.elk.utility.elasticsearch.ElasticsearchClientConfig;
+import com.study.elk.utility.elasticsearch.ElasticsearchTemplate;
+import lombok.RequiredArgsConstructor;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -17,63 +20,17 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class SearchService {
 
-    //검색 시 10개밖에 안나오는 문제 해결.. scroll..
-    public List<Map<String, Object>> findAll() {
+    private final ElasticsearchTemplate elasticsearchTemplate;
 
-        List<Map<String, Object>> resultList = new ArrayList<>();
+    public List<Map<String, Object>> findByKeyword(
+            String index,
+            String field,
+            String keyword) {
 
-        try (RestHighLevelClient elasticsearchClient = ElasticsearchClientConfig.getElasticsearchClient()){
-
-            SearchRequest searchRequest = new SearchRequest("shakespeare");
-            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-            sourceBuilder.query(QueryBuilders.matchAllQuery());
-
-            searchRequest.source(sourceBuilder);
-
-            SearchResponse searchResponse = elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
-
-            SearchHits hits = searchResponse.getHits();
-
-            for (SearchHit hit : hits) {
-                Map<String, Object> sourceMap = hit.getSourceAsMap();
-                resultList.add(sourceMap);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return resultList;
-    }
-
-    public List<Map<String, Object>> findByKeyword(String keyword) {
-
-        List<Map<String, Object>> resultList = new ArrayList<>();
-
-        try (RestHighLevelClient elasticsearchClient = ElasticsearchClientConfig.getElasticsearchClient()){
-
-            SearchRequest searchRequest = new SearchRequest("shakespeare");
-            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-            sourceBuilder.query(QueryBuilders.matchQuery("text_entry", keyword));
-
-            searchRequest.source(sourceBuilder);
-
-            SearchResponse searchResponse = elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
-
-            SearchHits hits = searchResponse.getHits();
-
-            for (SearchHit hit : hits) {
-                Map<String, Object> sourceMap = hit.getSourceAsMap();
-                resultList.add(sourceMap);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return resultList;
+        return elasticsearchTemplate.findByKeyword(new MatchQueryDto(index, field, keyword));
     }
 }
 
