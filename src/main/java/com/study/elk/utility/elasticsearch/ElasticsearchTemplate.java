@@ -10,6 +10,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.SuggestionBuilder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -19,6 +23,21 @@ import java.util.Map;
 
 @Component
 public class ElasticsearchTemplate {
+
+    private SuggestBuilder getSuggestBuilder(MatchQueryDto dto) {
+
+        SuggestionBuilder<?> suggestionBuilder = SuggestBuilders
+                .phraseSuggestion(dto.getField())
+                .text(dto.getKeyword())
+                .maxErrors(5)
+                .gramSize(3)
+                .realWordErrorLikelihood(0.6f)
+                .size(5);
+
+        SuggestBuilder suggestBuilder = new SuggestBuilder().addSuggestion("keyword_suggestion", suggestionBuilder);
+
+        return suggestBuilder;
+    }
     public List<Map<String, Object>> findByKeyword(MatchQueryDto dto){
 
         List<Map<String, Object>> resultList = new ArrayList<>();
@@ -30,9 +49,15 @@ public class ElasticsearchTemplate {
                         dto.getField(),
                         dto.getKeyword()
                 ).fuzziness(Fuzziness.AUTO));
+
+        //sourceBuilder에 suggest 기능 추가하는 부분..
+        sourceBuilder.suggest(getSuggestBuilder(dto));
         searchRequest.source(sourceBuilder);
 
+
         SearchResponse searchResponse = execute(searchRequest);
+        Suggest suggest = searchResponse.getSuggest();
+        System.out.println(suggest);
 
         SearchHits hits = searchResponse.getHits();
 
