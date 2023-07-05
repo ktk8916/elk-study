@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.elk.search.dao.ConvertMapper">
+    <insert id="convertToPoint" parameterType="com.study.elk.search.dto.ConvertDto">
+        INSERT INTO convert_cash_to_point (user_seq, request_cash, convert_point, point_exchanges_date, point_exchanges_status)
+        VALUES (#{userSeq}, #{userRequestCash}, #{userPoint}, default, default)
+    </insert>
+</mapper>
