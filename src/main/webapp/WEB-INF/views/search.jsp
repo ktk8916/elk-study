@@ -1,5 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.study.elk.dto.SearchResponseDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -498,15 +500,21 @@
                         <div class="bot_history">
                             <p><span>·</span>연관검색어</p>
                             <div class="history_inner">
-                                <div>검색어1</div>
-                                <div>검색어2</div>
-                                <div>검색어3</div>
-                                <div>검색어4</div>
-                                <div>검색어5</div>
-                                <div>검색어6</div>
-                                <div>검색어7</div>
-                                <div>검색어8</div>
-                                <div>검색어9</div>
+                                <%
+                                    SearchResponseDto result = (SearchResponseDto) request.getAttribute("result");
+                                    List<String> suggestWords = result.getSuggestWords();
+                                    pageContext.setAttribute("suggestWords", suggestWords);
+                                %>
+                                <c:choose>
+                                    <c:when test="${empty suggestWords}">
+                                        <div>연관 검색어가 없습니다.</div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="suggestWord" items="${suggestWords}">
+                                            <div><c:out value="${suggestWord}" /></div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
@@ -552,24 +560,23 @@
                     </div>
                 </div>
 
-<%--                <%--%>
-<%--                    List<Map<String, Object>> petitions = (List<Map<String, Object>>) request.getAttribute("petitions");--%>
 
-<%--                    for (Map<String, Object> stringObjectMap : petitions) { %>--%>
+                <%
+                    List<Map<String, Object>> searchResult = result.getSearchResult();
+                    pageContext.setAttribute("searchResult", searchResult);
+                %>
 
-<%--                <div class="result_area">--%>
-<%--                    <p class="date">등록일 : <span><%= stringObjectMap.get("end")%></span></p>--%>
-<%--                    <h2 class="title" onclick="window.location.href='/detail'"><%= stringObjectMap.get("title")%></h2>--%>
-<%--                    <p class="content" onclick="window.location.href='/detail'"><%= stringObjectMap.get("content")%></p>--%>
-<%--                </div>--%>
+                <c:forEach var="result" items="${searchResult}">
+                    <div class="result_area">
+                        <p class="date">등록일 : <span><c:out value="${result['end']}" /></span></p>
+                        <h2 class="title" onclick="window.location.href='/detail'"><c:out value="${result['title']}" /></h2>
+                        <p class="content" onclick="window.location.href='/detail'"><c:out value="${result['content']}" /></p>
+                    </div>
+                </c:forEach>
 
-<%--                <% } %>--%>
 
-                <div class="result_area">
-                    <p class="date">등록일 : <span>0000/00/00</span></p>
-                    <h2 class="title" onclick="window.location.href='/detail'">안녕하세요. ....입니다.</h2>
-                    <p class="content" onclick="window.location.href='/detail'">청원글 입니다.</p>
-                </div>
+
+
             </div>
         </div>
 
