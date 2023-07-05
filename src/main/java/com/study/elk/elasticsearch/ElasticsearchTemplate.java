@@ -1,4 +1,4 @@
-package com.study.elk.utility.elasticsearch;
+package com.study.elk.elasticsearch;
 
 import com.study.elk.search.dto.MatchQueryDto;
 import org.elasticsearch.action.search.SearchRequest;

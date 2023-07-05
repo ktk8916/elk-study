@@ -1,4 +1,4 @@
-package com.study.elk.utility.elasticsearch;
+package com.study.elk.elasticsearch;
 
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
