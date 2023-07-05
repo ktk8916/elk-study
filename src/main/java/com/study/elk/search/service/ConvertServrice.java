@@ -16,4 +16,11 @@ public class ConvertServrice {
     public int convertToPoint(ConvertDto convertDto) {
         return convertMapper.convertToPoint(convertDto);
     }
+
+    public int FindUserByAmount() {
+        return convertMapper.FindUserByAmount();
+    }
+    public int FindUserByPoint() {
+        return convertMapper.FindUserByPoint();
+    }
 }

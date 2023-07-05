@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class ConvertController {
 
@@ -32,6 +35,14 @@ public class ConvertController {
         // 관리자가 환전 승인을 누른 시나리오..
         int convertSeq = 3;
 
+        // 유저가 환전 신청한 금액을 확인후.. 잔고에서 차감 하면서 동시에.. 포인트 추가..
+
+//        Map<String, Object> params = new HashMap<>();
+//        convertServrice.userRequestConvertInfo(convertSeq);
+//
+//        params.put("amountDecrement", 100);
+//        params.put("pointIncrement", 100);
+//        params.put("id", yourRecordId);
 
 
 

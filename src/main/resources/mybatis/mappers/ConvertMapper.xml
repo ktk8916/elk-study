@@ -7,4 +7,19 @@
         INSERT INTO convert_cash_to_point (user_seq, request_cash, convert_point, point_exchanges_date, point_exchanges_status)
         VALUES (#{userSeq}, #{userRequestCash}, #{userPoint}, default, default)
     </insert>
+
+    <select id="FindUserByAmount" resultType="int">
+
+    </select>
+
+    <select id="FindUserByPoint" resultType="int">
+
+    </select>
+
+    <update id="updateFields" parameterType="map">
+        UPDATE your_table
+        SET amount = amount - #{amountDecrement},
+        point = point + #{pointIncrement}
+        WHERE id = #{id} AND amount >= #{amountDecrement}
+    </update>
 </mapper>

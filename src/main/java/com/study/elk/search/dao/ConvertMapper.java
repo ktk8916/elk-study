@@ -6,4 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ConvertMapper {
     int convertToPoint(ConvertDto convertDto);
+
+    int FindUserByAmount();
+    int FindUserByPoint();
 }
