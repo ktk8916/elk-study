@@ -26,11 +26,14 @@ dependencies {
 
 	implementation 'co.elastic.clients:elasticsearch-java:8.8.1'
 	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.4'
-	//implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.2'
+	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.2'
 
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	implementation 'javax.servlet:jstl'
+	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
