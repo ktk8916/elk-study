@@ -7,8 +7,8 @@
         INSERT INTO charge_history (user_seq, charge_price)
         VALUES (#{userSeq}, #{chargePrice})
     </insert>
-    <select id="getChargeHistoryByUserSeq" resultType="com.study.elk.userChargeHistoryDto">
-        SELECT * FROM charge_history
+    <select id="getChargeHistoryByUserSeq" resultType="com.study.elk.user.ChargeHistoryDto">
+        SELECT user_seq,charge_price FROM charge_history
         WHERE user_seq = #{userSeq}
     </select>
 </mapper>

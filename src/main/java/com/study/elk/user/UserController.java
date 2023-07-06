@@ -7,15 +7,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
+    private final ChargeHistoryService chargeHistoryService;
 
-    public UserController(UserService userService) {
+
+    public UserController(UserService userService, ChargeHistoryService chargeHistoryService) {
         this.userService = userService;
+        this.chargeHistoryService = chargeHistoryService;
     }
 
     @GetMapping("/login")
@@ -73,32 +77,22 @@ public class UserController {
     }
     @PostMapping("/coin")
     public ModelAndView insertBalance(
-            @RequestParam("amount") int amount, HttpSession session
+            @RequestParam("amount") int amount,
+            HttpSession session
     ) {
-        System.out.println( session.getAttribute("userSeq"));
         userService.insertBalance((int) session.getAttribute("userSeq"), amount);
-        ModelAndView mav = new ModelAndView("redirect:/user/info"); // 잔고 삽입 후 리다이렉트할 페이지 설정
+        ModelAndView mav = new ModelAndView("redirect:/user/info");
         return mav;
     }
-    }
+    @GetMapping("/info")
+    public ModelAndView showUserInfo(HttpSession session) {
+        ModelAndView mav = new ModelAndView("info");
+        Integer userSeq = (Integer) session.getAttribute("userSeq");
+        List<ChargeHistoryDto> chargeHistoryList = chargeHistoryService.getChargeHistoryByUserSeq(userSeq);
+        mav.addObject("id", session.getAttribute("id"));
+        mav.addObject("uname", session.getAttribute("uname"));
+        mav.addObject("chargeHistoryList", chargeHistoryList);
 
-//    @PostMapping("/update")
-//    public ModelAndView updateData(
-//            @ModelAttribute UserUpdateRequest request,
-//            HttpSession session,
-//            ModelAndView mav
-//    ) {
-//        //  user seq 를 조건으로 user 테이블이랑 deposit 테이블을 조인해서 내 잔고를 찾아낸다..
-//        // 내가 입력한 금액을 해당 잔고에 추가 시키고 다시 집어넣음. 성공했다는 결과를 줄거임..
-//
-//        // 위에것이 완료가 되었다면
-//        // user 테이블이랑 충전내역 테이블의 user_seq 부분에 해당 유저의 seq를 같이 넣고 나머지 정보랑 insert..
-//
-//        Integer seq = (Integer) session.getAttribute("seq");
-//
-//        UserUpdate dto = request.toDto(id);
-//        userService.update(dto);
-//        mav.setViewName("redirect:/user/login");
-//
-//        return mav;
-//    }
+        return mav;
+    }
+}
