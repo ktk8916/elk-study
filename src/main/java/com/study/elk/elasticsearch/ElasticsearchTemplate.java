@@ -91,6 +91,7 @@ public class ElasticsearchTemplate {
                 ).fuzziness(Fuzziness.AUTO));
 
         //sourceBuilder에 suggest 기능 추가하는 부분..
+        sourceBuilder.size(200);
         sourceBuilder.suggest(getSuggestBuilder(dto));
         searchRequest.source(sourceBuilder);
 
