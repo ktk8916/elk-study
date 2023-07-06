@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class MatchQueryDto {
+public class ExDto {
 
     private String index;
     private String field;
