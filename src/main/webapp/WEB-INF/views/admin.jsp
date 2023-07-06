@@ -14,7 +14,7 @@
     </div>
 
     <div style="width: 1024px; margin: 0 auto; display: flex; text-align: center; margin-bottom: 10px;">
-        <div style="width: calc(100% / 8);">유저 번호</div>
+        <div style="width: calc(100% / 8);">환전 번호</div>
         <div style="width: calc(100% / 8);">유저 ID</div>
         <div style="width: calc(100% / 8);">유저 이름</div>
         <div style="width: calc(100% / 8);">요청 금액</div>
@@ -25,7 +25,7 @@
     <div style="width: 1024px; margin: 0 auto;">
         <c:forEach items="${userConvertList}" var = "convert">
             <div style="width: 100%; display: flex; text-align: center; margin-bottom: 7px;">
-                <div style="width: calc(100% / 8);">${convert.user_seq}</div>
+                <div style="width: calc(100% / 8);">${convert.convert_cash_to_point_id}</div>
                 <div style="width: calc(100% / 8);">${convert.login_id}</div>
                 <div style="width: calc(100% / 8);">${convert.name}</div>
                 <div style="width: calc(100% / 8);">${convert.request_cash}</div>

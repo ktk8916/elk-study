@@ -10,7 +10,7 @@ public class ElasticsearchClientConfig {
 
     public RestHighLevelClient getElasticsearchClient(){
 
-        final String HOST_NAME = "192.168.0.15";
+        final String HOST_NAME = "localhost";
         final int PORT = 9200;
         final String SCHEMA = "http";
 

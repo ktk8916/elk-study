@@ -13,9 +13,9 @@ public class TransactionService {
     }
 
     @Transactional
-    public void ConvertLogicalTransaction(int userSeq, int requestCash) {
+    public void ConvertLogicalTransaction(int convertSeq, int requestCash) {
         // 유저의 환전상태를 완료로 바꿔주고..
-        convertMapper.userRequestConvertSuccess(userSeq);
+        convertMapper.userRequestConvertSuccess(convertSeq);
 
         // 유저의 현금은 Admin 계정 잔고로 적재..
         convertMapper.adminDepositUpdate(requestCash);

@@ -63,7 +63,7 @@ public class ConvertController {
         // 유저 환전 성공 시..
         if (result == 1) {
             // 유저의 환전상태를 바꿔주고.. admin 계정에 잔고를 추가해주는 logic... transaction 때문에 빼놓음..
-            transactionService.ConvertLogicalTransaction(userConvertInfoDto.getUser_seq(), userConvertInfoDto.getRequest_cash());
+            transactionService.ConvertLogicalTransaction(convertSeq, userConvertInfoDto.getRequest_cash());
         }
 
         return "redirect:/admin";

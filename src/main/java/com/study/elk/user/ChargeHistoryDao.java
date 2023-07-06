@@ -20,4 +20,8 @@ public class ChargeHistoryDao {
     public List<ChargeHistoryDto> getChargeHistoryByUserSeq(int userSeq) {
         return sqlSession.selectList("charge.getChargeHistoryByUserSeq", userSeq);
     }
+
+    public UserDepositDto getUserDeposit(int userSeq) {
+        return sqlSession.selectOne("charge.getUserDeposit", userSeq);
+    }
 }

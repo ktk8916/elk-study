@@ -104,11 +104,18 @@ public class UserController {
     @GetMapping("/info")
     public ModelAndView showUserInfo(HttpSession session) {
         ModelAndView mav = new ModelAndView("info");
+
         Integer userSeq = (Integer) session.getAttribute("userSeq");
+
         List<ChargeHistoryDto> chargeHistoryList = chargeHistoryService.getChargeHistoryByUserSeq(userSeq);
+        UserDepositDto userDepositDto = chargeHistoryService.getUserDeposit(userSeq);
+
+
         mav.addObject("id", session.getAttribute("id"));
         mav.addObject("uname", session.getAttribute("uname"));
         mav.addObject("chargeHistoryList", chargeHistoryList);
+        mav.addObject("amount", userDepositDto.getAmount());
+        mav.addObject("point", userDepositDto.getPoint());
 
         return mav;
     }

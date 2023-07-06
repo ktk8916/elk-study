@@ -7,23 +7,28 @@
     <title>Charge History</title>
 </head>
 <body>
-<h1>Charge History</h1>
+<h1>충전내역</h1>
 
 <table>
     <tr>
-
-        <th>User Seq</th>
-        <th>Charge Price</th>
-
+        <th>유저 번호</th>
+        <th>충전 금액</th>
     </tr>
     <c:forEach var="chargeHistory" items="${chargeHistoryList}">
         <tr>
-
             <td>${chargeHistory.userSeq}</td>
             <td>${chargeHistory.chargePrice}</td>
-
         </tr>
     </c:forEach>
 </table>
+
+<div>
+    <h3>내 잔고</h3>
+    <h3>${amount}</h3>
+</div>
+<div>
+    <h3>내 포인트</h3>
+    <h3>${point}</h3>
+</div>
 </body>
 </html>

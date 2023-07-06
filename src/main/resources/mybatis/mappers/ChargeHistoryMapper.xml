@@ -11,4 +11,7 @@
         SELECT user_seq,charge_price FROM charge_history
         WHERE user_seq = #{userSeq}
     </select>
+    <select id="getUserDeposit" resultType="com.study.elk.user.UserDepositDto" parameterType="int">
+        select d.amount, d.point from deposit d join users u on d.user_seq = u.user_seq where u.user_seq = #{userSeq};
+    </select>
 </mapper>

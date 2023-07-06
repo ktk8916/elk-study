@@ -14,5 +14,5 @@ public interface ConvertMapper {
     UserConvertInfoDto findCovertUserInfo(Map<String, Integer> seqParams);
     int userDepositUpdate(Map<String, Integer> userDepositUpdateParams);
     int adminDepositUpdate(int cash);
-    int userRequestConvertSuccess(int userSeq);
+    int userRequestConvertSuccess(int convertSeq);
 }

@@ -21,4 +21,8 @@ public class ChargeHistoryService {
     public List<ChargeHistoryDto> getChargeHistoryByUserSeq(int userSeq) {
         return chargeHistoryDao.getChargeHistoryByUserSeq(userSeq);
     }
+
+    public UserDepositDto getUserDeposit(int userSeq) {
+        return chargeHistoryDao.getUserDeposit(userSeq);
+    }
 }

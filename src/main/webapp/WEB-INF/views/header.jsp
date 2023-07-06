@@ -19,6 +19,7 @@
                 </c:if>
                 <li><a href="/user/coin">금액충전</a></li>
                 <li><a href="/user/point">포인트환전</a></li>
+                <li><a href="/user/info">내환전정보</a></li>
             </ul>
         </div>
     </div>

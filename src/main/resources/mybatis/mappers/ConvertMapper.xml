@@ -32,7 +32,7 @@
     <update id="userRequestConvertSuccess" parameterType="int">
         UPDATE convert_cash_to_point
         SET point_exchanges_status = 1
-        WHERE user_seq = #{userSeq};
+        WHERE convert_cash_to_point_id = #{convertSeq};
     </update>
 
     <update id="adminDepositUpdate" parameterType="int">
