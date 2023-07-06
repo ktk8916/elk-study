@@ -9,9 +9,5 @@
         <input type="submit" />
     </form>
 
-
-    <form action="/convertToPointOk" method="post">
-        <input type="submit" value="환전승인">
-    </form>
 </body>
 </html>

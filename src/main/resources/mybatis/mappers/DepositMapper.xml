@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.elk.user.DepositDao">
+
     <insert id="insertDeposit" parameterType="com.study.elk.user.DepositDto">
-        INSERT INTO deposit (amount, user_seq, point)
-        VALUES (#{amount}, #{userSeq}, #{point})
+        update deposit set amount = amount + #{amount} where user_seq = #{userSeq};
     </insert>
 
     <update id="updateDeposit" parameterType="com.study.elk.user.DepositDto">

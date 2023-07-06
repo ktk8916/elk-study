@@ -13,11 +13,11 @@ public class ChargeHistoryDao {
         this.sqlSession = sqlSession;
     }
 
-    public void insertChargeHistory(ChargeHistoryDto chargeHistory) {
-        sqlSession.insert("insertChargeHistory", chargeHistory);
+    public int insertChargeHistory(ChargeHistoryDto chargeHistory) {
+        return sqlSession.insert("charge.insertChargeHistory", chargeHistory);
     }
 
     public List<ChargeHistoryDto> getChargeHistoryByUserSeq(int userSeq) {
-        return sqlSession.selectList("getChargeHistoryByUserSeq", userSeq);
+        return sqlSession.selectList("charge.getChargeHistoryByUserSeq", userSeq);
     }
 }

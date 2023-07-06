@@ -31,14 +31,19 @@ public class UserService {
         return userDao.getUserByLoginId(request);
     }
 
-    public void insertBalance(int userSeq, int amount) {
+    public int insertBalance(int userSeq, int amount) {
 
         DepositDto deposit = new DepositDto();
+
         deposit.setUserSeq(userSeq);
         deposit.setAmount(amount);
-        depositDao.insertDeposit(deposit);
 
         ChargeHistoryDto chargeHistory = new ChargeHistoryDto(userSeq, amount);
-        chargeHistoryDao.insertChargeHistory(chargeHistory);
-}
+
+        if (depositDao.insertDeposit(deposit) == 1 && chargeHistoryDao.insertChargeHistory(chargeHistory) ==1) {
+            return 1;
+        }
+
+         return 0;
+    }
 }

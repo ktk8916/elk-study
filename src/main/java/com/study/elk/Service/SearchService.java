@@ -1,4 +1,4 @@
-package com.study.elk.service;
+package com.study.elk.Service;
 
 import com.study.elk.dto.MatchQueryDto;
 import com.study.elk.dto.SearchResponseDto;

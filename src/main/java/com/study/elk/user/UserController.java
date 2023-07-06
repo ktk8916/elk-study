@@ -16,7 +16,6 @@ public class UserController {
     private final UserService userService;
     private final ChargeHistoryService chargeHistoryService;
 
-
     public UserController(UserService userService, ChargeHistoryService chargeHistoryService) {
         this.userService = userService;
         this.chargeHistoryService = chargeHistoryService;
@@ -25,7 +24,14 @@ public class UserController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new LoginRequest());
+
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.setAttribute("id", null);
+        return "redirect:/main";
     }
 
     @GetMapping("/signup")
@@ -42,20 +48,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ModelAndView postLogin(
-            @ModelAttribute("loginRequest") LoginRequest request,
-            ModelAndView mav,
-            HttpSession session
-    ) {
+    public ModelAndView postLogin(@ModelAttribute("loginRequest") LoginRequest request, ModelAndView mav, HttpSession session) {
         UserDto login = userService.login(request);
+        System.out.println(login.getLoginId());
         if (login != null) {
             session.setAttribute("id", login.getLoginId());
+            session.setAttribute("userId", login.getLoginId());
             session.setAttribute("userSeq", login.getUserSeq());
             session.setAttribute("uname", login.getName());
-            mav.setViewName("redirect:/user/coin");
+            mav.setViewName("redirect:/main");
         } else {
             mav.setViewName("redirect:/user/login");
         }
+
         return mav;
     }
 
@@ -75,13 +80,25 @@ public class UserController {
     public String getCoinPage() {
         return "/coin";
     }
+
+    @GetMapping("/point")
+    public String getConvertPage() {
+        return "/convert";
+    }
+
+
     @PostMapping("/coin")
-    public ModelAndView insertBalance(
-            @RequestParam("amount") int amount,
-            HttpSession session
-    ) {
-        userService.insertBalance((int) session.getAttribute("userSeq"), amount);
-        ModelAndView mav = new ModelAndView("redirect:/user/info");
+    public ModelAndView insertBalance(@RequestParam("amount") int amount, HttpSession session) {
+
+        int result = userService.insertBalance((int) session.getAttribute("userSeq"), amount);
+
+        if (result == 1) {
+            // 충전한 잔액 + 원래 잔액 더해서 노출 해주자..
+        }
+
+
+        ModelAndView mav = new ModelAndView("redirect:/main");
+
         return mav;
     }
     @GetMapping("/info")

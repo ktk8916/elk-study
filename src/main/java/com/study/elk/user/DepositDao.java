@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DepositDao {
-    void insertDeposit(DepositDto deposit);
+    int insertDeposit(DepositDto deposit);
 
     void updateDeposit(DepositDto deposit);
 

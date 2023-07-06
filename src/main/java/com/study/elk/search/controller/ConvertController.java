@@ -27,20 +27,25 @@ public class ConvertController {
     }
 
     @PostMapping ("/convertToPoint")
-    public void convertToPoint(HttpSession session, @RequestParam int requestCash){
+    public String convertToPoint(HttpSession session, @RequestParam int requestCash){
+
+        int userSeq = (int) session.getAttribute("userSeq");
 
         // 포인트 환전을 요청한 ID, seq, 환전 요청한 금액(현금).. 으로 dto 용 객체 생성..
-        ConvertDto convertDto = ConvertDto.builder().userId("test").userSeq(3).userRequestCash(requestCash).userPoint((int) (requestCash * 0.9)).build();
+        ConvertDto convertDto = ConvertDto.builder().userId("test").userSeq(userSeq).userRequestCash(requestCash).userPoint((int) (requestCash * 0.9)).build();
 
         // 유저 현금 -> 포인트 환전 신청.. default status == 0 (환전 대기 상태)
         convertServrice.convertToPoint(convertDto);
+
+        return "main";
     }
 
     @PostMapping("/convertToPointOk")
-    public String convertToPointOk(@RequestParam int convertSeq) {
+    public String convertToPointOk(@RequestParam int convertSeq, HttpSession session) {
         // 관리자가 환전 승인을 누른 시나리오..
         Map<String, Integer> seqParams = new HashMap<>();
-        seqParams.put("userSeq", 3);
+        int userSeq = (int) session.getAttribute("userSeq");
+        seqParams.put("userSeq", userSeq);
         seqParams.put("convertSeq", convertSeq);
 
         // 유저가 환전 신청한 금액을 확인후.. 잔고에서 차감 하면서 동시에.. 포인트 추가..

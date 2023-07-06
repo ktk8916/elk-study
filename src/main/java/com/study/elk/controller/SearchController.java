@@ -2,8 +2,7 @@ package com.study.elk.controller;
 
 import com.study.elk.dto.MatchQueryDto;
 import com.study.elk.dto.SearchResponseDto;
-import com.study.elk.service.SearchService;
-import lombok.RequiredArgsConstructor;
+import com.study.elk.Service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +10,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @Slf4j
 public class SearchController {
     private final SearchService searchService;
 
+    public SearchController(SearchService searchService) {
+        this.searchService = searchService;
+    }
+
     @GetMapping("/main")
-    public String home(){
-        return "main";
+    public ModelAndView home(HttpSession session, ModelAndView mav){
+
+        if (session.getAttribute("id") != null) {
+            mav.setViewName("/main");
+        } else {
+            mav.setViewName("/login");
+        }
+
+        return mav;
     }
 
     @GetMapping("/search")
