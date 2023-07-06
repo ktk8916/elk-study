@@ -9,7 +9,7 @@
         VALUES (#{userSeq}, #{chargePrice})
     </insert>
     <select id="getChargeHistoryByUserSeq" resultType="com.study.elk.user.ChargeHistoryDto">
-        SELECT * FROM charge_history
+        SELECT user_seq,charge_price FROM charge_history
         WHERE user_seq = #{userSeq}
     </select>
 </mapper>
