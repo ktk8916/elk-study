@@ -17,11 +17,23 @@
         where user_seq = #{userId}
     </update>
 
-    <select id="readPetition" resultType="Petitions">
+    <select id="readForEdit" resultType="Petitions">
         select *
         from petitions
         where petitions_id = #{tableId) and user_seq = #{userId}
     </select>
+<!-- 댓글 구간-->
+    <select id="readComment" resultType="Comment">
+        select
+        t.comment_id,
+        u.name,
+        u.user_seq user_seq,
+        t.comment
+        from comment as t
+        inner join users as u
+        on t.user_seq = u.user_seq
+    </select>
+
 
 
 <!--   좋아요 구간 -->
@@ -38,7 +50,6 @@
         where id = #{tid}
     </update>
 
-<!--  like 관련 쿼리.  -->
     <select id="isThereBeing" resultType="int">
             <!--        result 값을 구하는 쿼리 -->
             select count(*) from likes where tid = #{tid} and uid = #{uid};

@@ -1,38 +1,38 @@
 package com.study.elk.Service;
 
 import com.study.elk.dao.PetitionMapper;
-import com.study.elk.domain.dto.Likes;
+import com.study.elk.domain.dto.Comment;
 import com.study.elk.domain.dto.Petitions;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public class PetitionService {
 
     PetitionMapper petitionMapper;
+    PointService pointService;
+    ReadWriteService readWriteService;
 
     public PetitionService(PetitionMapper petitionMapper) {
         this.petitionMapper = petitionMapper;
     }
 
-    public int writePetition(Petitions petitions){
-        // 여기서 petition에 기존 테이블 번호가 존재하는 지 체크
-            return petitionMapper.writePetition(petitions);
-    }
+    @Transactional
+   public int writePetition(Petitions petitions){
 
-    public int updatePetition(Petitions petitions){
-        return petitionMapper.updatePetition(petitions);
-    }
+        if (petitions.getTableId() != null){
+            return readWriteService.updatePetition(petitions);
+        }else {
+            pointService.UpdateWallet(petitions.getUserId());
+            pointService.WalletLog(petitions.getUserId());
+            return readWriteService.writePetition(petitions);
+            //여기서 포인트 사용 로그를 업데이트 해야함.
 
-    public Petitions readPetition(){
-        return petitionMapper.readPetition();
-    }
+        }
+   }
 
-    public void like(Likes likes){ // 여기서 있는지 없는지 판단해야함
-        // TODO likes -> tid uid likes 가 있는 상황
-           int therebeing = petitionMapper.isTherebeing(likes); // 여기선 0 or 1이 나옴
-
-            likes.setLikes(therebeing); // 그 값을 세팅함
-
-            petitionMapper.likeTable(likes); // likes에 유저정보 + 테이블 정보 입력하는 곳
-            petitionMapper.updateLike(likes); // 여기서 테이블 데이터 업데이트 예정.
-    }
+   public List<Comment> readComment(int tid){
+        return petitionMapper.readComment(tid);
+   }
 
 }
