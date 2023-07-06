@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.elk.search.dao.AdminMapper">
+    <select id="userConvertList" resultType="com.study.elk.search.dto.UserConvertList">
+        select c.convert_cash_to_point_id,c.user_seq, c.request_cash, c.convert_point, c.point_exchanges_date, c.point_exchanges_status, u.login_id, u.name
+        from convert_cash_to_point c join users u on c.user_seq = u.user_seq;
+    </select>
+</mapper>

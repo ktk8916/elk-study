@@ -1,10 +1,14 @@
 package com.study.elk.search.controller;
 
 import com.study.elk.search.dto.ConvertDto;
+import com.study.elk.search.dto.UserConvertInfoDto;
 import com.study.elk.search.service.ConvertServrice;
+import com.study.elk.search.service.TransactionService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -15,8 +19,11 @@ public class ConvertController {
 
     private final ConvertServrice convertServrice;
 
-    public ConvertController(ConvertServrice convertServrice) {
+    private final TransactionService transactionService;
+
+    public ConvertController(ConvertServrice convertServrice, TransactionService transactionService) {
         this.convertServrice = convertServrice;
+        this.transactionService = transactionService;
     }
 
     @PostMapping ("/convertToPoint")
@@ -30,21 +37,30 @@ public class ConvertController {
     }
 
     @PostMapping("/convertToPointOk")
-    public void convertToPointOk() {
-
+    public String convertToPointOk(@RequestParam int convertSeq) {
         // 관리자가 환전 승인을 누른 시나리오..
-        int convertSeq = 3;
+        Map<String, Integer> seqParams = new HashMap<>();
+        seqParams.put("userSeq", 3);
+        seqParams.put("convertSeq", convertSeq);
 
         // 유저가 환전 신청한 금액을 확인후.. 잔고에서 차감 하면서 동시에.. 포인트 추가..
+        UserConvertInfoDto userConvertInfoDto = convertServrice.findCovertUserInfo(seqParams);
 
-//        Map<String, Object> params = new HashMap<>();
-//        convertServrice.userRequestConvertInfo(convertSeq);
-//
-//        params.put("amountDecrement", 100);
-//        params.put("pointIncrement", 100);
-//        params.put("id", yourRecordId);
+        // 유저가 환전 신청한 금액 만큼 해당 유저의 잔고 차감 후.. 동시에 포인트 환전액 추가..
+        Map<String, Integer> userDepositUpdateParams = new HashMap<>();
 
+        userDepositUpdateParams.put("amountDecrement", userConvertInfoDto.getRequest_cash());
+        userDepositUpdateParams.put("pointIncrement", userConvertInfoDto.getConvert_point());
+        userDepositUpdateParams.put("userSeq", userConvertInfoDto.getUser_seq());
 
+        int result = convertServrice.userDepositUpdate(userDepositUpdateParams);
 
+        // 유저 환전 성공 시..
+        if (result == 1) {
+            // 유저의 환전상태를 바꿔주고.. admin 계정에 잔고를 추가해주는 logic... transaction 때문에 빼놓음..
+            transactionService.ConvertLogicalTransaction(userConvertInfoDto.getUser_seq(), userConvertInfoDto.getRequest_cash());
+        }
+
+        return "redirect:/admin";
     }
 }

@@ -8,6 +8,10 @@
         VALUES (#{userSeq}, #{userRequestCash}, #{userPoint}, default, default)
     </insert>
 
+    <select id="findCovertUserInfo" parameterType="map" resultType="com.study.elk.search.dto.UserConvertInfoDto">
+        select * from convert_cash_to_point where user_seq = #{userSeq} and convert_cash_to_point_id = #{convertSeq} and point_exchanges_status = 0;
+    </select>
+
     <select id="FindUserByAmount" resultType="int">
 
     </select>
@@ -16,10 +20,23 @@
 
     </select>
 
-    <update id="updateFields" parameterType="map">
-        UPDATE your_table
+    <update id="userDepositUpdate" parameterType="map">
+        UPDATE deposit
         SET amount = amount - #{amountDecrement},
         point = point + #{pointIncrement}
-        WHERE id = #{id} AND amount >= #{amountDecrement}
+        WHERE user_seq = #{userSeq}
+        AND amount >= #{amountDecrement}
+        AND user_seq IN (SELECT user_seq FROM (SELECT d.user_seq FROM users u JOIN deposit d ON u.user_seq = d.user_seq) AS temp);
     </update>
+
+    <update id="userRequestConvertSuccess" parameterType="int">
+        UPDATE convert_cash_to_point
+        SET point_exchanges_status = 1
+        WHERE user_seq = #{userSeq};
+    </update>
+
+    <update id="adminDepositUpdate" parameterType="int">
+        update admin set admin_cash = admin_cash + ${cash};
+    </update>
+
 </mapper>
