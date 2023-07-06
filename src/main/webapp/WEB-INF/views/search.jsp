@@ -471,16 +471,14 @@
                     <div class="search_history_info_inner">
                         <div class="top_history">
                             <p><span>·</span>인기 검색어</p>
+                            <%
+                                List<String> popularKeyword = (List<String>)request.getAttribute("popularKeyword");
+                                pageContext.setAttribute("popularKeyword", popularKeyword);
+                            %>
                             <div class="history_inner">
-                                <div>검색어1</div>
-                                <div>검색어2</div>
-                                <div>검색어3</div>
-                                <div>검색어4</div>
-                                <div>검색어5</div>
-                                <div>검색어6</div>
-                                <div>검색어7</div>
-                                <div>검색어8</div>
-                                <div>검색어9</div>
+                                <c:forEach var="keyword" items="${popularKeyword}">
+                                    <div><c:out value="${keyword}" /></div>
+                                </c:forEach>
                             </div>
                         </div>
                         <div class="mid_history">
