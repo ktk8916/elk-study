@@ -1,16 +1,14 @@
 package com.study.elk.elasticsearch;
 
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.ElasticsearchTransport;
-import co.elastic.clients.transport.rest_client.RestClientTransport;
 import org.apache.http.HttpHost;
-import org.elasticsearch.client.ElasticsearchClient;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ElasticsearchClientConfig {
 
-    public static RestHighLevelClient getElasticsearchClient(){
+    public RestHighLevelClient getElasticsearchClient(){
 
         final String HOST_NAME = "localhost";
         final int PORT = 9200;

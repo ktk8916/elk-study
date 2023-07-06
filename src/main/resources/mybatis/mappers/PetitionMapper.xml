@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.elk.dao.PetitionMapper">
+<!--    테이블 구간  -->
+    <insert id="writePetition">
+        insert into
+        petitions(title,content,likes,user_seq)
+        values(#{title},#{content},#{like},#{userId})
+    </insert>
+
+
+    <update id="updatePetition">
+        update petitions
+        set content = #{content}
+        where user_seq = #{userId}
+    </update>
+
+    <select id="readForEdit" resultType="com.study.elk.domain.dto.Petitions">
+        select *
+        from petitions
+        where petitions_id = #{tableId) and user_seq = #{userId}
+    </select>
+<!-- 댓글 구간-->
+    <select id="readComment" resultType="com.study.elk.domain.dto.Comment">
+        select
+        t.comment_id,
+        u.name,
+        u.user_seq user_seq,
+        t.comment
+        from comment as t
+        inner join users as u
+        on t.user_seq = u.user_seq
+    </select>
+
+
+
+<!--   좋아요 구간 -->
+    <update id="updateLike">
+        set likes =
+        <choose>
+            <when test="result == 0">
+                likes + 1
+            </when>
+            <otherwise>
+                likes - 1
+            </otherwise>
+        </choose>
+        where id = #{tid}
+    </update>
+
+    <select id="isThereBeing" resultType="int">
+            <!--        result 값을 구하는 쿼리 -->
+            select count(*) from likes where tid = #{tid} and uid = #{uid};
+    </select>
+
+    <insert id="likeTable">
+        <choose>
+            <when test="result == 0">
+                insert into likes (uid, tid) values (#{uid}, #{tid});
+            </when>
+            <otherwise>
+                delete from likes where uid = #{uid} and tid = #{tid};
+            </otherwise>
+        </choose>
+    </insert>
+
+</mapper>
