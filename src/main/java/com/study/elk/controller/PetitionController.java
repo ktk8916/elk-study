@@ -41,7 +41,7 @@ public class PetitionController {
 
 
     @GetMapping("/petition/2") // 글 수정 및 작성
-    public ModelAndView writePetition(ModelAndView mav, HttpSession session,
+    public void writePetition(ModelAndView mav, HttpSession session,
                                       @RequestParam(name = "tid", required = false)Integer tid
                                       ){
         /*TODO 여기선 이전에 내가 썼던 글을 읽어와야함.
@@ -64,14 +64,14 @@ public class PetitionController {
         mav.addObject("petitions",readWriteService.readForEdit(tid));
         }
 
-        mav.setViewName(); // jsp 이름 넣어야함.
-
-        return mav;
+//        mav.setViewName(); // jsp 이름 넣어야함.
+//
+//        return mav;
 
     }
 
     @PostMapping("/petition/2")
-    public ModelAndView requestPetition(ModelAndView mav, HttpSession session,
+    public void requestPetition(ModelAndView mav, HttpSession session,
                                         @ModelAttribute NonIdPetition nonIdPetition,
                                             @RequestParam(name = "tableId",required = false)Integer tid){
         /*TODO 청원을 올리러 Submit 을 한 상황.
@@ -98,9 +98,9 @@ public class PetitionController {
 
 
 
-        mav.setViewName(); //보여줄 페이지 이름, 아마도 메인
-
-        return mav;
+//        mav.setViewName(); //보여줄 페이지 이름, 아마도 메인
+//
+//        return mav;
     }
 
     @PostMapping("/petition/3")

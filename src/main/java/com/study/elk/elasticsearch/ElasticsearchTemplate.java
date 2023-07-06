@@ -109,9 +109,9 @@ public class ElasticsearchTemplate {
         Suggest suggest = searchResponse.getSuggest();
         //System.out.println(suggest);
 
-//        List<String> suggestList = convertSuggestToList(suggest);
+        List<String> suggestList = convertSuggestToList(suggest);
         //System.out.println(suggestList);
-        List<String> suggestList = Arrays.asList("1111", "2222", "3333");
+//        List<String> suggestList = Arrays.asList("1111", "2222", "3333");
 
         return new SearchResponseDto(resultList, suggestList);
     }

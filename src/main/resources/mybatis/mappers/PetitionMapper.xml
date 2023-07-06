@@ -17,13 +17,13 @@
         where user_seq = #{userId}
     </update>
 
-    <select id="readForEdit" resultType="Petitions">
+    <select id="readForEdit" resultType="com.study.elk.domain.dto.Petitions">
         select *
         from petitions
         where petitions_id = #{tableId) and user_seq = #{userId}
     </select>
 <!-- 댓글 구간-->
-    <select id="readComment" resultType="Comment">
+    <select id="readComment" resultType="com.study.elk.domain.dto.Comment">
         select
         t.comment_id,
         u.name,

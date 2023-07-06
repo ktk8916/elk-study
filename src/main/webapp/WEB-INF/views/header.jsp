@@ -6,9 +6,9 @@
         </div>
         <div>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">회원가입</a></li>
-                <li><a href="#">로그인</a></li>
+                <li><a href="/main">Home</a></li>
+                <li><a href="/user/signup">회원가입</a></li>
+                <li><a href="/user/login">로그인</a></li>
                 <li><a href="#">FAQ</a></li>
             </ul>
         </div>
