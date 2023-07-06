@@ -25,11 +25,7 @@ public class SearchController {
     @GetMapping("/main")
     public ModelAndView home(HttpSession session, ModelAndView mav){
 
-        if (session.getAttribute("id") != null) {
-            mav.setViewName("/main");
-        } else {
-            mav.setViewName("/login");
-        }
+        mav.setViewName("/main");
 
         return mav;
     }
