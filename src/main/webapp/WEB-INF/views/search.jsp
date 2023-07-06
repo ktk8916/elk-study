@@ -426,7 +426,6 @@
 <body>
 <main class="wrap">
     <div>
-        <!--        <div class="center_area">-->
         <div class="inner_background_height">
             <div class="center_area_other">
                 <header>
@@ -477,24 +476,24 @@
                             %>
                             <div class="history_inner">
                                 <c:forEach var="keyword" items="${popularKeyword}">
-                                    <div><c:out value="${keyword}" /></div>
+                                    <div onclick="window.location.href='/search?keyword=${keyword}'"><c:out value="${keyword}" /></div>
                                 </c:forEach>
                             </div>
                         </div>
-                        <div class="mid_history">
-                            <p><span>·</span>내가 찾은 검색어</p>
-                            <div class="history_inner">
-                                <div>검색어1</div>
-                                <div>검색어2</div>
-                                <div>검색어3</div>
-                                <div>검색어4</div>
-                                <div>검색어5</div>
-                                <div>검색어6</div>
-                                <div>검색어7</div>
-                                <div>검색어8</div>
-                                <div>검색어9</div>
-                            </div>
-                        </div>
+<%--                        <div class="mid_history">--%>
+<%--                            <p><span>·</span>내가 찾은 검색어</p>--%>
+<%--                            <div class="history_inner">--%>
+<%--                                <div>검색어1</div>--%>
+<%--                                <div>검색어2</div>--%>
+<%--                                <div>검색어3</div>--%>
+<%--                                <div>검색어4</div>--%>
+<%--                                <div>검색어5</div>--%>
+<%--                                <div>검색어6</div>--%>
+<%--                                <div>검색어7</div>--%>
+<%--                                <div>검색어8</div>--%>
+<%--                                <div>검색어9</div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                         <div class="bot_history">
                             <p><span>·</span>연관검색어</p>
                             <div class="history_inner">
@@ -509,7 +508,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <c:forEach var="suggestWord" items="${suggestWords}">
-                                            <div><c:out value="${suggestWord}" /></div>
+                                            <div onclick="window.location.href='/search?keyword=${suggestWord}'"><c:out value="${suggestWord}" /></div>
                                         </c:forEach>
                                     </c:otherwise>
                                 </c:choose>
@@ -522,62 +521,58 @@
         </section>
         <div class="center_area">
             <div class="search_area_zone">
-                <form action="/search" method="post" class="input_wrap">
-                    <input placeholder="검색어를 입력하세요." class="search_input" type="text" />
+                <form action="/search" method="get" class="input_wrap">
+                    <input name="keyword" placeholder="검색어를 입력하세요." class="search_input" type="text" />
                 </form>
-                <div class="search_range">
-                    <p><span>·</span>검색범위</p>
-                    <div class="radio_area">
-                        <input id="radio1" name="select" type="radio" />
-                        <label for="radio1">제목+내용</label>
-                    </div>
-                    <div class="radio_area">
-                        <input id="radio2" name="select" type="radio" />
-                        <label for="radio2">제목</label>
-                    </div>
-                    <div class="radio_area">
-                        <input id="radio3" name="select" type="radio" />
-                        <label for="radio3" >내용</label>
-                    </div>
-                </div>
+<%--                <div class="search_range">--%>
+<%--                    <p><span>·</span>검색범위</p>--%>
+<%--                    <div class="radio_area">--%>
+<%--                        <input id="radio1" name="select" type="radio" />--%>
+<%--                        <label for="radio1">제목+내용</label>--%>
+<%--                    </div>--%>
+<%--                    <div class="radio_area">--%>
+<%--                        <input id="radio2" name="select" type="radio" />--%>
+<%--                        <label for="radio2">제목</label>--%>
+<%--                    </div>--%>
+<%--                    <div class="radio_area">--%>
+<%--                        <input id="radio3" name="select" type="radio" />--%>
+<%--                        <label for="radio3" >내용</label>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
+            <%
+                List<Map<String, Object>> searchResult = result.getSearchResult();
+                String keyword = (String)request.getAttribute("keyword");
+                pageContext.setAttribute("searchResult", searchResult);
+            %>
+
             <div class="search_result_area">
-                <p class="info_text"><span class="keyword">'TEST'</span> 키워드로 <span class="type">제목 + 내용</span>에서 검색한 결과 (총 <span class="qty">49</span>건) 입니다.</p>
+                <p class="info_text"><span class="keyword"><%=keyword%></span> 키워드로 검색한 결과 (총 <span class="qty">${searchResult.size()}</span>건) 입니다.</p>
 
                 <div class="result_info_area">
-                    <p class="qtyInfo">총 <span class="qty">49</span>건</p>
-                    <div>
-                        <div class="radio_area">
-                            <input id="radio5" name="select" type="radio" />
-                            <label for="radio5">정확도순</label>
-                        </div>
-                        <div class="radio_area">
-                            <input id="radio4" name="select" type="radio" />
-                            <label for="radio4" >최신순</label>
-                        </div>
-                    </div>
+                    <p class="qtyInfo">총 <span class="qty">${searchResult.size()}</span>건</p>
+<%--                    <div>--%>
+<%--                        <div class="radio_area">--%>
+<%--                            <input id="radio5" name="select" type="radio" />--%>
+<%--                            <label for="radio5">정확도순</label>--%>
+<%--                        </div>--%>
+<%--                        <div class="radio_area">--%>
+<%--                            <input id="radio4" name="select" type="radio" />--%>
+<%--                            <label for="radio4" >최신순</label>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                 </div>
 
 
-                <%
-                    List<Map<String, Object>> searchResult = result.getSearchResult();
-                    pageContext.setAttribute("searchResult", searchResult);
-                %>
-
                 <c:forEach var="result" items="${searchResult}">
-                    <div class="result_area">
+                    <div class="result_area" onclick="window.location.href='/petition/${result['petition_idx']}'">
                         <p class="date">등록일 : <span><c:out value="${result['end']}" /></span></p>
-                        <h2 class="title" onclick="window.location.href='/detail'"><c:out value="${result['title']}" /></h2>
-                        <p class="content" onclick="window.location.href='/detail'"><c:out value="${result['content']}" /></p>
+                        <h2 class="title"><c:out value="${result['title']}" /></h2>
+                        <p class="content" ><c:out value="${result['content']}" /></p>
                     </div>
                 </c:forEach>
-
-
-
-
             </div>
         </div>
-
     </div>
 </main>
 

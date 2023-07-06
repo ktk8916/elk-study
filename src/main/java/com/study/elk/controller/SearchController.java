@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,6 +41,7 @@ public class SearchController {
 
         List<String> popularKeyword = searchService.findPopularKeyword();
 
+        mav.addObject("keyword", keyword);
         mav.addObject("popularKeyword", popularKeyword);
         mav.addObject("result", responseDto);
         mav.setViewName("search");
