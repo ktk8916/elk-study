@@ -3,10 +3,12 @@ package com.study.elk.elasticsearch;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ElasticsearchClientConfig {
 
-    public static RestHighLevelClient getElasticsearchClient(){
+    public RestHighLevelClient getElasticsearchClient(){
 
         final String HOST_NAME = "localhost";
         final int PORT = 9200;
