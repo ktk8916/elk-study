@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.elk.user.ChargeHistoryMapper">
+    <insert id="insertChargeHistory" parameterType="com.study.elk.user.ChargeHistoryDto">
+        INSERT INTO charge_history (user_seq, charge_price)
+        VALUES (#{userSeq}, #{chargePrice})
+    </insert>
+    <select id="getChargeHistoryByUserSeq" resultType="com.study.elk.userChargeHistoryDto">
+        SELECT * FROM charge_history
+        WHERE user_seq = #{userSeq}
+    </select>
+</mapper>
