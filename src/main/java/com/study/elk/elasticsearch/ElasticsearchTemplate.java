@@ -11,6 +11,9 @@ import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.suggest.Suggest;
 import org.elasticsearch.search.suggest.Suggest.Suggestion;
@@ -46,6 +49,37 @@ public class ElasticsearchTemplate {
 
         return suggestBuilder;
     }
+    public List<String> findPopularKeyword(MatchQueryDto dto) {
+        SearchRequest searchRequest = new SearchRequest(dto.getIndex());
+
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+
+        sourceBuilder.query(
+                QueryBuilders.matchQuery(
+                        dto.getField(),
+                        dto.getKeyword()
+                ));
+
+        sourceBuilder.size(0);
+
+        TermsAggregationBuilder aggregationBuilder = AggregationBuilders.terms("top_keywords")
+                .field("search_keyword")
+                .size(10);
+
+        sourceBuilder.aggregation(aggregationBuilder);
+        searchRequest.source(sourceBuilder);
+
+        SearchResponse searchResponse = execute(searchRequest);
+
+        Terms terms = searchResponse.getAggregations().get("top_keywords");
+        List<String> resultList = new ArrayList<>();
+        for (Terms.Bucket bucket : terms.getBuckets()) {
+            String keyword = bucket.getKeyAsString();
+            resultList.add(keyword);
+        }
+
+        return resultList;
+    }
     public SearchResponseDto findByKeyword(MatchQueryDto dto){
 
         SearchRequest searchRequest = new SearchRequest(dto.getIndex());
@@ -59,7 +93,6 @@ public class ElasticsearchTemplate {
         //sourceBuilder에 suggest 기능 추가하는 부분..
         sourceBuilder.suggest(getSuggestBuilder(dto));
         searchRequest.source(sourceBuilder);
-
 
         SearchResponse searchResponse = execute(searchRequest);
 

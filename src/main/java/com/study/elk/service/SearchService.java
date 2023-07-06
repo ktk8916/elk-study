@@ -20,4 +20,12 @@ public class SearchService {
         return elasticsearchTemplate.findByKeyword(dto);
     }
 
+    public List<String> findPopularKeyword(){
+        MatchQueryDto dto = new MatchQueryDto(
+                "springlog",
+                "logger_name",
+                "com.study.elk.controller.SearchController");
+        return elasticsearchTemplate.findPopularKeyword(dto);
+    }
+
 }
