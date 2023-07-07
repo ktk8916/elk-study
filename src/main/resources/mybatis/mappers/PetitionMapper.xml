@@ -25,14 +25,32 @@
 <!-- 댓글 구간-->
     <select id="readComment" resultType="com.study.elk.domain.dto.Comment">
         select
-        t.comment_id,
+        t.comment_id commentId,
         u.name,
-        u.user_seq user_seq,
-        t.comment
+        t.comment,
+        t.petition_id petitionId,
+        u.user_seq userSeq
         from comment as t
         inner join users as u
         on t.user_seq = u.user_seq
+        where t.petition_id = #{idx}
     </select>
+
+
+
+    <insert id="insertComment">
+        insert into
+        comment(comment,petition_id,user_seq)
+        value(#{comment},#{petitionId},#{userSeq})
+
+    </insert>
+
+    <delete id="deleteComment">
+        delete
+        from comment
+        where comment_id = #{commentId}
+
+    </delete>
 
 
 

@@ -23,4 +23,8 @@ public interface PetitionMapper {
     int updateLike(Likes likes);
 
     List<Comment> readComment(int tid);
+
+    int insertComment(Comment comment);
+
+    int deleteComment(int commentId);
 }
