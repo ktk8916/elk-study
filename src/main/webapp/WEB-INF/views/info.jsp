@@ -51,15 +51,16 @@
             <td>${chargeHistory.chargePrice}</td>
         </tr>
     </c:forEach>
+    <tr>
+        <td>내 잔고</td>
+        <td>내 포인트</td>
+    </tr>
+    <tr>
+        <td>${amount}</td>
+        <td>${point}</td>
+    </tr>
+
 </table>
-<div>
-    <h3>내 잔고</h3>
-    <h3>${amount}</h3>
-</div>
-<div>
-    <h3>내 포인트</h3>
-    <h3>${point}</h3>
-</div>
 
 </body>
 </html>
