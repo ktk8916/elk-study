@@ -430,7 +430,7 @@
             <div class="center_area_other">
                 <header>
                     <div class="header_inner_wrap">
-                        <div>
+                        <div onclick="window.location.href='/main'">
                             <img src="https://petitions.assembly.go.kr/assets/img/gnb_assembly_logo.fd2631f3.png">
                         </div>
                         <div>
@@ -457,7 +457,7 @@
 
                 <section class="gnb">
                     <div class="gnb_wrap">
-                        <div class="first_menu_img">
+                        <div class="first_menu_img" onclick="window.location.href='/main'">
                             <img src="https://petitions.assembly.go.kr/assets/img/gnbLogo.3b00e93d.png">
                         </div>
                         <div><p>청원안내</p></div>
