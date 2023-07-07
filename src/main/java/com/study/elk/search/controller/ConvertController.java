@@ -41,16 +41,19 @@ public class ConvertController {
     }
 
     @PostMapping("/convertToPointOk")
-    public String convertToPointOk(@RequestParam int convertSeq, HttpSession session) {
+    public String convertToPointOk(@RequestParam int convertSeq, @RequestParam int userSeq, HttpSession session) {
         // 관리자가 환전 승인을 누른 시나리오..
         Map<String, Integer> seqParams = new HashMap<>();
-        int userSeq = (int) session.getAttribute("userSeq");
-        seqParams.put("userSeq", userSeq);
+        int user_seq = userSeq;
+        System.out.println(user_seq);
+        System.out.println(convertSeq);
+        seqParams.put("userSeq", user_seq);
         seqParams.put("convertSeq", convertSeq);
 
         // 유저가 환전 신청한 금액을 확인후.. 잔고에서 차감 하면서 동시에.. 포인트 추가..
         UserConvertInfoDto userConvertInfoDto = convertServrice.findCovertUserInfo(seqParams);
 
+        System.out.println(userConvertInfoDto);
         // 유저가 환전 신청한 금액 만큼 해당 유저의 잔고 차감 후.. 동시에 포인트 환전액 추가..
         Map<String, Integer> userDepositUpdateParams = new HashMap<>();
 

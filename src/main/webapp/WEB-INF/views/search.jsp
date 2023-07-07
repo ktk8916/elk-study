@@ -436,9 +436,20 @@
                         <div>
                             <ul>
                                 <li><a href="/main">Home</a></li>
-                                <li><a href="/user/signup">회원가입</a></li>
-                                <li><a href="/user/login">로그인</a></li>
-                                <li><a href="#">FAQ</a></li>
+
+                                <%-- JSP 태그 대신 JavaScript 조건문 사용 --%>
+                                <script>
+                                  if (${id == null}) {
+                                    document.write('<li><a href="/user/signup">회원가입</a></li>');
+                                    document.write('<li><a href="/user/login">로그인</a></li>');
+                                  } else {
+                                    document.write('<li><a href="#">${userId} 님 환영해요</a></li>');
+                                    document.write('<li><a href="/user/logout">로그아웃</a></li>');
+                                    document.write('<li><a href="/user/coin">금액충전</a></li>');
+                                    document.write('<li><a href="/user/point">포인트환전</a></li>');
+                                    document.write('<li><a href="/user/info">내환전정보</a></li>');
+                                  }
+                                </script>
                             </ul>
                         </div>
                     </div>
@@ -565,12 +576,18 @@
 
 
                 <c:forEach var="result" items="${searchResult}">
-                    <div class="result_area" onclick="window.location.href='/petition/${result['petition_idx']}'">
-                        <p class="date">등록일 : <span><c:out value="${result['end']}" /></span></p>
-                        <h2 class="title"><c:out value="${result['title']}" /></h2>
-                        <p class="content" ><c:out value="${result['content']}" /></p>
+                    <div class="result_area" onclick="redirectToPetition('<c:out value="${result.title}" />', '<c:out value="${result.content}" />', '<c:out value="${result.petition_idx}" />')">
+                        <p class="date">등록일: <span><c:out value="${result.end}" /></span></p>
+                        <h2 class="title"><c:out value="${result.title}" /></h2>
+                        <p class="content"><c:out value="${result.content}" /></p>
                     </div>
                 </c:forEach>
+
+                <script>
+                  function redirectToPetition(title, content, petitionIdx) {
+                    window.location.href = '/petition/' + petitionIdx + '?title=' + encodeURIComponent(title) + '&content=' + encodeURIComponent(content);
+                  }
+                </script>
             </div>
         </div>
     </div>

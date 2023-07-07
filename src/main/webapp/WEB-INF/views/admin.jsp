@@ -34,7 +34,7 @@
                 <div style="width: calc(100% / 8);">${convert.point_exchanges_status == 0 ? '요청중' : '완료'}</div>
                 <c:if test="${convert.point_exchanges_status == 0}">
                     <div style="width: calc(100% / 8); display: flex; justify-content: center; align-items: center;">
-                        <form action="/convertToPointOk?convertSeq=${convert.convert_cash_to_point_id}" method="post">
+                        <form action="/convertToPointOk?convertSeq=${convert.convert_cash_to_point_id}&userSeq=${convert.user_seq}" method="post">
                             <input type="submit" value="승인" />
                         </form>
                     </div>
