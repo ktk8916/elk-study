@@ -2,9 +2,7 @@ package com.study.elk.Service;
 
 import com.study.elk.dao.PetitionMapper;
 import com.study.elk.domain.dto.Comment;
-import com.study.elk.domain.dto.Petitions;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,8 +10,8 @@ import java.util.List;
 public class PetitionService {
 
     PetitionMapper petitionMapper;
-    PointService pointService;
-    ReadWriteService readWriteService;
+//    PointService pointService;
+//    ReadWriteService readWriteService;
 
     public PetitionService(PetitionMapper petitionMapper) {
         this.petitionMapper = petitionMapper;
@@ -41,4 +39,5 @@ public class PetitionService {
         return petitionMapper.insertComment(comment);
    }
 
+   public int deleteComment(int commentId){return petitionMapper.deleteComment(commentId);}
 }

@@ -26,5 +26,5 @@ public interface PetitionMapper {
 
     int insertComment(Comment comment);
 
-    int deleteComment();
+    int deleteComment(int commentId);
 }

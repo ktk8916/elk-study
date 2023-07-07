@@ -14,6 +14,11 @@ public class Comment {
     private int petitionId;
     private int userSeq;
 
+    public Comment(int petitionId, int userSeq) {
+        this.petitionId = petitionId;
+        this.userSeq = userSeq;
+    }
+
     public Comment(int userSeq, String comment, int petitionId) {
         this.userSeq = userSeq;
         this.comment = comment;

@@ -257,7 +257,7 @@
             border: 1px solid #939393;
             border-radius: 5px;
         }
-        .test{
+        .text{
             display: flex;
             align-items: center;
             gap: 20px;
@@ -266,20 +266,26 @@
             border-right: 1px solid #000000;
 
         }
-        .test2{
+        .commentinput{
             width: 1000px;
             margin-left: 30px;
             border: 1px solid #000000;
         }
-        .test3{
+        .text_box{
+            margin: 1px;
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 0 20px;
-            border-bottom: 1px solid #000000;
-
+            padding: 5px 20px;
+            border: 1px solid #000000;
+            border-radius: 2px;
         }
-
+        .name_box{
+            width: 15%;
+        }
+        .comment_box{
+            width: 77%;
+        }
 
 
     </style>
@@ -287,34 +293,33 @@
 <section class="detail_area">
 
 <div class="info">
-    <div class="test">
+    <div class="text">
         <p >작성자</p>
         <p>내용</p>
     </div>
+</div>
     <c:forEach items="${commentTable}" var = "commentTable">
-        <div class="test">
-            <p >${commentTable.name}</p>
-            <p >${commentTable.comment}</p>
-<%--            <td>${todo.createAt}</td>--%>
+        <div class="text_box">
+            <p class="name_box">${commentTable.name}</p>
+            <p class="comment_box"> ${commentTable.comment}</p>
             <c:set var="id" value="${sessionScope.userSeq}"/>
             <c:if test="${id eq commentTable.userSeq}">
-                <td >
-                    <a href="/todo/update?todoid=${todo.id}"> 삭제</a>
-                        <%-- <a href="/todo/update/${todo.id}"> 수정</a>--%>
-                        <%--        이런 식으로도 사용할 수 있음.--%>
-                </td>
+                <form method="post" action="/delete">
+                    <input type="hidden" name="petitionId" value="${commentTable.petitionId}">
+                    <input type="hidden" name="commentId" value="${commentTable.commentId}">
+                    <input type="submit" value="삭제">
+                </form>
             </c:if>
         </div>
     </c:forEach>
 
-</div>
 
 </section>
 <div>
     <% int idx = (int) request.getAttribute("idx"); %>
     <form action="/comment" method="post">
         <input type="hidden"name="idx" value="<%=idx%>">
-        <input class="test2" type="text" name="content" placeholder="댓글을 입력해주세요">
+        <input class="commentinput" type="text" name="content" placeholder="댓글을 입력해주세요">
         <input type="submit">
     </form>
 </div>

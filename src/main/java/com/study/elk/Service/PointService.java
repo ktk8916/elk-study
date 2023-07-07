@@ -1,9 +1,10 @@
 package com.study.elk.Service;
 
 import com.study.elk.dao.UserMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PointService {
 
     UserMapper userMapper;

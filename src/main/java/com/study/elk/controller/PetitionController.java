@@ -1,31 +1,26 @@
 package com.study.elk.controller;
 
-import com.study.elk.Service.ReadWriteService;
-import com.study.elk.Service.PointService;
 import com.study.elk.Service.PetitionService;
+import com.study.elk.Service.PointService;
 import com.study.elk.domain.dto.Comment;
-import com.study.elk.domain.dto.Likes;
-import com.study.elk.domain.dto.Petitions;
 import com.study.elk.request.NonIdPetition;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class PetitionController {
     private final PetitionService petitionService;
+    private final PointService pointService;
 
-//    ReadWriteService readWriteService;
-//    PointService pointService;
-
-
-    public PetitionController(PetitionService petitionService) {
+    public PetitionController(PetitionService petitionService, PointService pointService) {
         this.petitionService = petitionService;
+        this.pointService = pointService;
     }
+
 
     @GetMapping("/petition/{idx}") // 글 처음 읽는 부분
     public ModelAndView readPetition(ModelAndView mav, @PathVariable("idx") int idx){
@@ -59,9 +54,22 @@ public class PetitionController {
 
         petitionService.insertComment(comment);
 
+
+
         mav.setViewName("redirect:/petition/" + idx);
         return mav;
     }
+
+    @PostMapping("/delete")
+    public ModelAndView deleteComment(ModelAndView mav,
+                                      @RequestParam(name = "commentId")int commentId,
+                                      @RequestParam(name = "petitionId")int idx){
+        petitionService.deleteComment(commentId);
+
+        mav.setViewName("redirect:/petition/" + idx);
+        return mav;
+    }
+
 
     @PostMapping("/petition/2")
     public void requestPetition(ModelAndView mav, HttpSession session,
