@@ -39,15 +39,14 @@
 </head>
 <body>
 <h1> 충전 내역 </h1>
-
 <table>
     <tr>
-        <th>유저 번호</th>
+        <th>순서</th>
         <th>충전한 금액</th>
     </tr>
-    <c:forEach var="chargeHistory" items="${chargeHistoryList}">
+    <c:forEach var="chargeHistory" items="${chargeHistoryList}" varStatus="loop">
         <tr>
-            <td>${chargeHistory.userSeq}</td>
+            <td>${loop.index + 1}</td>
             <td>${chargeHistory.chargePrice}</td>
         </tr>
     </c:forEach>
@@ -59,8 +58,6 @@
         <td>${amount}</td>
         <td>${point}</td>
     </tr>
-
 </table>
-
 </body>
 </html>
