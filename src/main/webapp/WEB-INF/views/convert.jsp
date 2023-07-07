@@ -4,67 +4,71 @@
 <head>
     <title>포인트 환전</title>
     <style>
-        @font-face {
-            font-family: 'SBAggroB';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        .coin-form {
-            width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            justify-content: center;
-            align-items: center;
-            height: 30vh; /* 폼 컨테이너의 높이를 조정해주세요. */
+        body {
+            background-color: #F5F5F5;
+            font-family: Arial, sans-serif;
         }
 
-        .coin-form h2 {
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            margin-top: 100px;
+        }
+
+        h1 {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .coin-form input[type="text"],
-        .coin-form input[type="number"] {
-            width: 90%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        label {
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .coin-form input[type="submit"] {
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #CCCCCC;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
             width: 100%;
             padding: 10px;
-            background-color: red;
-            color: #fff;
+            background-color: #4CAF50;
+            color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        .coin-form input[type="submit"]:hover {
-            background-color: red;
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
 
-        .coin-form .success-message {
-            color: red;
-            margin-bottom: 10px;
+        .approval-message {
             text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-<h1>얼마 환전 하겠습니까 ? 90%의 포인트로 환전 됩니다</h1>
-<h1>관리자의 승인 후 포인트가 충전 됩니다.</h1>
-<form action="/convertToPoint" method="post">
+<div class="container">
+    <div class="header">
+        <h3>얼마 환전 하겠습니까 ? 90%의 포인트로 환전 됩니다</h3>
+    </div>
     <form action="/convertToPoint" method="post">
         <input name="requestCash" />
         <input type="submit" />
     </form>
-</form>
+    <div class="approval-message">
+        <h3>관리자의 승인 후 포인트가 충전 됩니다.</h3>
+    </div>
+</div>
 </body>
 </html>
