@@ -25,6 +25,7 @@ public class SearchController {
     @GetMapping("/main")
     public ModelAndView home(HttpSession session, ModelAndView mav){
 
+
         mav.setViewName("/main");
 
         return mav;
