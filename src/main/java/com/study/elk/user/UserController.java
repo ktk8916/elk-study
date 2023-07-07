@@ -69,7 +69,9 @@ public class UserController {
             @ModelAttribute("signupRequest") SignupRequest request,
             ModelAndView mav
     ) {
+
         if (userService.signup(request)) {
+
             mav.setViewName("redirect:/user/login");
         } else {
             mav.setViewName("redirect:/user/signup");

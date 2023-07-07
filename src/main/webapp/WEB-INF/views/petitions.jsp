@@ -34,7 +34,7 @@
 
         /* Reset hyperlink styles */
         a {
-            text-decoration: none;f
+            text-decoration: none;
             color: inherit;
         }
 

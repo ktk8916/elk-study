@@ -21,14 +21,28 @@ public class UserService {
         this.depositDao = depositDao;
         this.chargeHistoryDao = chargeHistoryDao;
     }
-
+@Transactional
     public boolean signup(SignupRequest request) {
-        return userDao.insert(request);
+        int userSeq = userDao.insert(request);
+
+        if(userSeq != 0){
+            return true;
+        }
+        return false;
     }
 
+    public int insertWallet(int userSeq){return userDao.insertWallet(userSeq);}
 
     public UserDto login(LoginRequest request) {
-        return userDao.getUserByLoginId(request);
+        UserDto userByLoginId = userDao.getUserByLoginId(request);
+
+        DepositDto depositDto = userDao.searchWallet(userByLoginId.getUserSeq());
+
+        if(depositDto == null) {
+            userDao.insertWallet(userByLoginId.getUserSeq());
+        }
+
+        return userByLoginId;
     }
 
     public int insertBalance(int userSeq, int amount) {
