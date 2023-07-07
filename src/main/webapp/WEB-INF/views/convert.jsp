@@ -30,7 +30,7 @@
         }
 
         input[type="text"] {
-            width: 100%;
+            width: 95%;
             padding: 8px;
             border: 1px solid #CCCCCC;
             border-radius: 4px;
