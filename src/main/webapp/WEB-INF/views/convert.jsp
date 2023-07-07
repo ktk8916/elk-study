@@ -63,7 +63,7 @@
         <h3>얼마 환전 하겠습니까 ? 90%의 포인트로 환전 됩니다</h3>
     </div>
     <form action="/convertToPoint" method="post">
-        <input name="requestCash" />
+        <input style="width: 100%; height: 30px; margin-bottom: 10px;" name="requestCash" />
         <input type="submit" />
     </form>
     <div class="approval-message">
