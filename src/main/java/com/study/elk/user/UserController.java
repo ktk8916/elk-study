@@ -70,6 +70,7 @@ public class UserController {
             ModelAndView mav
     ) {
         if (userService.signup(request)) {
+
             mav.setViewName("redirect:/user/login");
         } else {
             mav.setViewName("redirect:/user/signup");

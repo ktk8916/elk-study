@@ -23,7 +23,7 @@ public class PetitionController {
 
 
     @GetMapping("/petition/{idx}") // 글 처음 읽는 부분
-    public ModelAndView readPetition(ModelAndView mav, @PathVariable("idx") int idx, @RequestParam("title") String title, @RequestParam("content") String content){
+    public ModelAndView readPetition(ModelAndView mav, @PathVariable("idx") int idx){
 
         // 그냥 테이블 아이디로 검색해야한다.
         System.out.println(idx);
@@ -33,9 +33,7 @@ public class PetitionController {
         System.out.println(comments.size());
 
 
-        mav.addObject("commentTable",comments);
-        mav.addObject("title", title);
-        mav.addObject("content", content);
+      mav.addObject("commentTable",comments);
 
         mav.setViewName("petitions"); // 보여줄 화면
 
@@ -55,6 +53,7 @@ public class PetitionController {
         Comment comment = new Comment(userSeq,content,idx);
 
         petitionService.insertComment(comment);
+        pointService.UpdateWallet(userSeq);
 
 
 
@@ -119,5 +118,4 @@ public class PetitionController {
         return mav;
 
     }
-
 }
