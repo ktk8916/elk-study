@@ -10,4 +10,8 @@
         set point = point - 500
         where user_seq = #{userSeq}
     </update>
+
+
 </mapper>
+
+

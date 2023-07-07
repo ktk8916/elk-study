@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserDao {
-    boolean insert(SignupRequest request);
+    int insert(SignupRequest request);
     UserDto getUserByLoginId(LoginRequest request);
+
+    int insertWallet(int userSeq);
+    DepositDto searchWallet(int userSeq);
 }
