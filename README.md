@@ -12,7 +12,7 @@
 
 
 ## Tools
-- Java 11, Spring boot 2.7.3
+- Java 11, Spring boot 2.7.3, Mybatis
 - MySQL, Elasticsearch 7.2, Logstash 7.2, Kibana 7.2 
 - IntelliJ IDEA, MySql Workbench
 
@@ -25,6 +25,15 @@ ELK Stack에 대한 이해와 활용
    - 수집된 검색어 기반으로 인기검색어 제공
    - log 분석을 위한 kibana 대쉬보드 생성
 
+Spring과 Mybatis 활용, Transaction의 이해
+  - 회원(가입, 로그인, 포인트 충전) 기능 구현
+  - 청원 댓글(포인트사용) 기능 구현
+  - 포인트 사용 시 로그 처리
+
+## Arcitecture
+
+![image](https://github.com/ktk8916/elk-study/assets/71807768/e6fb214a-eba9-4eff-851f-5ab12f5eb4eb)
+
 ## 시연
 
-
+추가예정..
