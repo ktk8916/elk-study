@@ -36,8 +36,11 @@ Spring과 Mybatis 활용, Transaction의 이해
 
 ## 시연
 
-https://files.slack.com/files-pri/T053ASVJV96-F05G2A03RNJ/image.png
+### 메인화면, 검색
+![1](https://github.com/ktk8916/elk-study/assets/71807768/c3ffdb29-596f-4b84-bfb9-bbd0a58948ef)
 
-https://files.slack.com/files-pri/T053ASVJV96-F05G9079PKL/image.png
+### 연관검색어, 인기검색어
+![2](https://github.com/ktk8916/elk-study/assets/71807768/8a644bc2-b069-434d-8e41-e7a8693e4840)
 
-https://files.slack.com/files-pri/T053ASVJV96-F05G8S897B5/image.png
+### 유저, 댓글
+![3](https://github.com/ktk8916/elk-study/assets/71807768/5da771a7-9c6c-48e0-a4f1-5e3cbeb7ed2a)
