@@ -23,6 +23,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
+
         model.addAttribute("loginRequest", new LoginRequest());
 
         return "login";
@@ -49,8 +50,10 @@ public class UserController {
 
     @PostMapping("/login")
     public ModelAndView postLogin(@ModelAttribute("loginRequest") LoginRequest request, ModelAndView mav, HttpSession session) {
+
         UserDto login = userService.login(request);
-        System.out.println(login.getLoginId());
+
+        System.out.println(login);
         if (login != null) {
             session.setAttribute("id", login.getLoginId());
             session.setAttribute("userId", login.getLoginId());
